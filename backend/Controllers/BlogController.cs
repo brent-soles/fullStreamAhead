@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class BlogController : ControllerBase
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<JObject> Get()
         {
-            return new string[] { "value1", "value2" };
+            JObject obj = JObject.Parse(@"{
+                'name': 'bnert',
+                'country': 'swedish'
+            }");
+
+            obj.SelectToken("name").Replace("brent");
+
+            return obj;
         }
 
         // GET api/values/5
